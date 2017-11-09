@@ -28,7 +28,6 @@ campaignPathLookup(path:$path_0) {
 
         fetch(query, queryVars, opts).then(data => {
           console.log(data);
-          yield put({ type: 'UPDATE_STORE', value: data });
         });
     });
 };
