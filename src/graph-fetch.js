@@ -22,9 +22,15 @@ export default (graphqlUrl) => {
     if (!headers.get('content-type')) {
       options.headers.append('content-type', 'application/json')
     };
-    return fetch(graphqlUrl, options).then(function (res) {
-      console.log(res);
-      return res.json();
+    return fetch(graphqlUrl, options).then((response) => {
+      return response.json().then((json) => {
+        return { response, json };
+      }).then(({ response, json }) => {
+        if(!response.ok) {
+          return Promise.reject({ response, json });
+        }
+        return json.data;
+      })
     }).catch((e) => {
       console.log(e);
     });

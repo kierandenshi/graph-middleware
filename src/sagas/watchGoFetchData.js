@@ -26,8 +26,10 @@ campaignPathLookup(path:$path_0) {
           // custom fetch options
         };
 
-        fetch(query, queryVars, opts).then(data => {
-          console.log(data);
-        });
+        const result = yield(fetch(query, queryVars, opts));
+        yield(put({
+          type: 'SOME_DATA',
+          payload: result,
+        }))
     });
 };
